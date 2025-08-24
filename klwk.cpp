@@ -52,9 +52,8 @@ int main() {
                 break;
             }
             
-            char input;
-            cout << "请进行移动 ";
-            cin >> input;
+            cout << "请进行移动 (WASD): ";
+            char input = _getch();  // 使用_getch()实现按键后立即响应
             
             processInput(game, input);
             clearScreen();
@@ -150,31 +149,31 @@ void printMap(const GameState& game) {
     }
     
     cout << endl << "当前关数：" << game.level << endl;
-    if(game.level == 5) {
-        cout << "PS：您可以输入ddd来右移三格，以此类推" << endl;
-    }
+    // 移除第5关的多步移动提示信息
 }
 
 void processInput(GameState& game, char input) {
     int newX = game.playerX;
     int newY = game.playerY;
     
+    // 只处理单个字符输入，移除多步移动功能
     switch(input) {
-        case 's': if(newX < 5) newX++; break;
-        case 'w': if(newX > 1) newX--; break;
-        case 'd': if(newY < 5) newY++; break;
-        case 'a': if(newY > 1) newY--; break;
+        case 's': case 'S': if(newX < 5) newX++; break;
+        case 'w': case 'W': if(newX > 1) newX--; break;
+        case 'd': case 'D': if(newY < 5) newY++; break;
+        case 'a': case 'A': if(newY > 1) newY--; break;
         default:
-            cout << "\n输" << endl;
-            pause();
-            exit(0);
+            return;  // 无效输入直接忽略，不显示任何提示
     }
     
-    // 更新玩家位置
-    game.map[game.playerX][game.playerY] = EMPTY;
-    game.playerX = newX;
-    game.playerY = newY;
-    game.map[game.playerX][game.playerY] = PLAYER;
+    // 检查目标位置是否可移动（不是墙壁）
+    if(game.map[newX][newY] != WALL) {
+        // 更新玩家位置
+        game.map[game.playerX][game.playerY] = EMPTY;
+        game.playerX = newX;
+        game.playerY = newY;
+        game.map[game.playerX][game.playerY] = PLAYER;
+    }
 }
 
 bool checkGameStatus(const GameState& game) {
