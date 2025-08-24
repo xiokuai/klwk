@@ -219,5 +219,5 @@ void clearScreen() {
 
 void pause() {
     cout << "Press Enter to continue...";
-    _getch();
+    cin.get();
 }
