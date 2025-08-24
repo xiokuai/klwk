@@ -1,4 +1,4 @@
-#include<iostream>
+#include <iostream>
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
@@ -6,7 +6,7 @@
 #include <fcntl.h>
 #include <vector>
 #include <string>
-#include <conio.h>  // 添加conio.h以支持_getch()函数
+#include <conio.h>
 using namespace std;
 
 // 游戏常量定义
@@ -35,6 +35,7 @@ void printMap(const GameState& game);
 void processInput(GameState& game, char input);
 bool checkGameStatus(const GameState& game);
 void clearScreen();
+void pause();
 
 int main() {
     initializeConsole();
@@ -179,7 +180,7 @@ bool checkGameStatus(const GameState& game) {
     // 检查胜利条件
     if(game.playerX == game.goalX && game.playerY == game.goalY) {
         cout << "\nvictory" << endl;
-        system("pause");
+        pause();
         return false;
     }
     
@@ -187,7 +188,7 @@ bool checkGameStatus(const GameState& game) {
     for(const auto& trap : game.traps) {
         if(game.playerX == trap.first && game.playerY == trap.second) {
             cout << "\nlose" << endl;
-            system("pause");
+            pause();
             exit(0);
         }
     }
@@ -196,11 +197,11 @@ bool checkGameStatus(const GameState& game) {
     if((game.playerX == 1 && game.playerY == 0) || (game.playerX == 0 && game.playerY == 1)) {
         if(rand() % 2 == 1) {
             cout << "\nvictory" << endl;
-            system("pause");
+            pause();
             return false;
         } else {
             cout << "\nlose" << endl;
-            system("pause");
+            pause();
             exit(0);
         }
     }
@@ -209,5 +210,14 @@ bool checkGameStatus(const GameState& game) {
 }
 
 void clearScreen() {
-    system("cls");
+    #if defined(_WIN32) || defined(_WIN64)
+        system("cls");
+    #else
+        system("clear");
+    #endif
+}
+
+void pause() {
+    cout << "Press Enter to continue...";
+    cin.get();
 }
