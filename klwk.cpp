@@ -1,9 +1,15 @@
 #include<iostream>
 #include <stdlib.h>
 #include <time.h>
+#include <windows.h>
+#include <io.h>
+#include <fcntl.h>
 using namespace std;
 
 int main() {
+    // è®¾ç½®æ§åˆ¶å°ä¸ºUTF-8æ¨¡å¼
+    SetConsoleOutputCP(CP_UTF8);
+    SetConsoleCP(CP_UTF8);
     for(int gs=1;;gs++) {
         int n[7][7] = {{3,5,3,3,3,3,3},
                        {5,1,0,0,0,0,3},
@@ -23,7 +29,7 @@ int main() {
         } else {
             bh = rand()%5+1;
         }
-        n[ah][bh] = 4; // ĞŞ¸ÄÁËÕâÀïµÄÖĞÎÄ·ÖºÅ
+        n[ah][bh] = 4;
         
         int ah2, bh2;
         ah2 = rand()%5+1;
@@ -52,26 +58,26 @@ int main() {
             for(int i=0; i<=6; i++) {
                 for(int j=0; j<=6; j++) {
                     if(n[i][j]==1) {
-                        cout<<"ÈË";
+                        cout<<"äºº";
                     } else if(n[i][j]==0) {
                         cout<<"__";
                     } else if(n[i][j]==2) {
-                        cout<<"ĞÇ"; 
+                        cout<<"æ˜Ÿ"; 
                     } else if(n[i][j]==3) {
-                        cout<<"Ç½";
+                        cout<<"å¢™";
                     } else if(n[i][j]==4) {
-                        cout<<"»ğ";
+                        cout<<"ç«";
                     } else {
-                        cout<<"ÃÅ";
+                        cout<<"é—¨";
                     } 
                 }
                 cout<<endl;
             }
             
             cout<<endl;
-            cout<<"µ±Ç°¹ØÊı£º"<<gs<<endl;
+            cout<<"å½“å‰å…³æ•°ï¼š"<<gs<<endl;
             if(gs==5) {
-                cout<<"PS£ºÄú¿ÉÒÔÊäÈëdddÀ´ÓÒÒÆÈı¸ñ£¬ÒÔ´ËÀàÍÆ"<<endl;
+                cout<<"PSï¼šæ‚¨å¯ä»¥è¾“å…¥dddæ¥å³ç§»ä¸‰æ ¼ï¼Œä»¥æ­¤ç±»æ¨"<<endl;
             }
             
             if(a==5 and b==5) {
@@ -100,7 +106,7 @@ int main() {
             }		
             
             char ru;
-            cout<<"Çë½øĞĞÒÆ¶¯ ";
+            cout<<"è¯·è¿›è¡Œç§»åŠ¨ ";
             cin>>ru;
             
             if(ru=='s') {
@@ -130,7 +136,7 @@ int main() {
                     n[1][1] = 0;
                 }
             } else {
-                cout<<"\n£¿"<<endl;
+                cout<<"\nè¾“"<<endl;
                 system("pause");
                 return 0;
             }
